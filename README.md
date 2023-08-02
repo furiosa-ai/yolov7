@@ -13,14 +13,6 @@ conda activate demo
 pip install -r requirements.txt
 ```
 
-### Calibration and Evaluation Dataset
-Download COCO dataset from [here](https://cocodataset.org/#download) or prepare own dataset for calibration
-#### Example
-```sh
-wget http://images.cocodataset.org/zips/val2017.zip 
-unzip val2017.zip -d ./coco/
-```
-
 ## Export ONNX
 Convert torch model to onnx model. 
 ```sh
@@ -31,7 +23,7 @@ python onnx_export.py --weights=./yolov7.pt --onnx_path=./yolov7.onnx --opset_ve
 Convert f32 onnx model to i8 onnx model using ```furiosa.quantinizer```. This involves a process for cutting off the post-processing elements.
 
 ```sh
-python furiosa_quantize.py --onnx_path=./yolov7.onnx --dfg_path=./yolov7.dfg --opset_version=13 --calib_data=./coco/val2017 --calib_count=10 --model_input_name=images
+python furiosa_quantize.py --onnx_path=./yolov7.onnx --dfg_path=./yolov7.dfg --opset_version=13 --calib_data=./images/train --model_input_name=images
 ```
 
 
@@ -56,7 +48,7 @@ Create a session using the quantized model obtained from ```furiosa_quantize.py`
 
 ### Example
 ```sh
-python furiosa_eval.py --dfg_path=./yolov7.dfg --eval_data_path=./coco/val2017 --eval_count=10 --output_path=./output
+python furiosa_eval.py --dfg_path=./yolov7.dfg --eval_data_path=./images/test --output_path=./output
 ```
 
 ```sh
