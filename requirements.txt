@@ -1,0 +1,10 @@
+numpy
+opencv-python
+seaborn
+scipy
+tqdm
+torch == 1.13.1
+torchvision == 0.14.1
+onnx == 1.12.0
+onnxruntime == 1.13.1
+furiosa-sdk[full] == 0.9.1
